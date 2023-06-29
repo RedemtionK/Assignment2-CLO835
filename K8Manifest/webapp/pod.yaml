@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: websrv-images
-      image: 699068936389.dkr.ecr.us-east-1.amazonaws.com/websrv-images
+      image: 699068936389.dkr.ecr.us-east-1.amazonaws.com/websrv-images:v0.1
       env:
         - name: DBPWD
           value: pw
