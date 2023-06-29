@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: application
+  name: app
   namespace: webapp
 spec:
   containers:
     - name: websrv-images
-      image: 
+      image: 699068936389.dkr.ecr.us-east-1.amazonaws.com/websrv-images
       env:
         - name: DBPWD
           value: pw
