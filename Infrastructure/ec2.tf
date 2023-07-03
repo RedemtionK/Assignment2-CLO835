@@ -35,11 +35,13 @@ resource "aws_instance" "k8s" {
 
   vpc_security_group_ids = [
     module.ec2_sg.security_group_id,
-    module.dev_ssh_sg.security_group_id
+    module.dev_ssh_sg.security_group_id,
+    aws_security_group.ec2_sg_K8.id
   ]
   iam_instance_profile = "LabInstanceProfile"
 
   tags = {
+    Name = "Klaus-EC2-Assigment2"  
     project = "clo835"
   }
 
@@ -48,6 +50,28 @@ resource "aws_instance" "k8s" {
   disable_api_termination = false
   ebs_optimized           = true
 }
+
+resource "aws_security_group" "ec2_sg_K8" {
+  name        = "ec2_sg_K8"
+  description = "Security group for EC2 instance"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    from_port   = 30001
+    to_port     = 30001
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
 
 resource "aws_key_pair" "k8s" {
   key_name   = "Assignment2"

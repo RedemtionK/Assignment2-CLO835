@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: app
+  name: app-rep
   namespace: webapp
   labels:
     app: employees

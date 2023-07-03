@@ -11,7 +11,7 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30303
+      nodePort: 30003
   selector:
     app: employees
     version: v1
