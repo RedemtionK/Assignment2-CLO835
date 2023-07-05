@@ -36,7 +36,8 @@ resource "aws_instance" "k8s" {
   vpc_security_group_ids = [
     module.ec2_sg.security_group_id,
     module.dev_ssh_sg.security_group_id,
-    aws_security_group.ec2_sg_K8.id
+    aws_security_group.ec2_sg_K8_1.id,
+    aws_security_group.ec2_sg_K8_2.id
   ]
   iam_instance_profile = "LabInstanceProfile"
 
@@ -51,8 +52,8 @@ resource "aws_instance" "k8s" {
   ebs_optimized           = true
 }
 
-resource "aws_security_group" "ec2_sg_K8" {
-  name        = "ec2_sg_K8"
+resource "aws_security_group" "ec2_sg_K8_1" {
+  name        = "ec2_sg_K8_1"
   description = "Security group for EC2 instance"
   vpc_id      = data.aws_vpc.default.id
 
@@ -70,6 +71,27 @@ resource "aws_security_group" "ec2_sg_K8" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "ec2_sg_K8_2" {
+  name        = "ec2_sg_K8_2"
+  description = "Security group for EC2 instance"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    from_port   = 30000
+    to_port     = 30000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 
 
 

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+spec:
+  rules:
+    - host:  clo837-klaus.com
+      http:
+        paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: app
+                port:
+                  number: 30001
+          - path: /v2
+            pathType: Prefix
+            backend:
+              service:
+                name: app-v2
+                port:
+                  number: 30000

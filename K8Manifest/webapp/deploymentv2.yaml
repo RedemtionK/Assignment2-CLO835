@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-dep-v2
+  namespace: employees
+  labels:
+    app: employees
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: employees
+        version: v2
+    spec:
+      containers:
+        - name: websrv-images
+          image: 699068936389.dkr.ecr.us-east-1.amazonaws.com/websrv-images:v0.2
+          env:
+            - name: DBPWD
+              value: pw
+            - name: DBUSER
+              value: root
+            - name: DBHOST
+              value: "mysql.sqldb.svc.cluster.local"
+            - name: DBPORT
+              value: "3306"
+          ports:
+            - containerPort: 8080
